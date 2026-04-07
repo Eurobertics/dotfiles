@@ -254,4 +254,13 @@ require("lazy").setup({
   "tpope/vim-fugitive",
   cmd = "Git",
 },
+
+-- Buffer übersicht
+{
+  "akinsho/bufferline.nvim",
+  dependencies = "nvim-tree/nvim-web-devicons",
+  config = function()
+    require("bufferline").setup({})
+  end,
+},
 })
