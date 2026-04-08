@@ -35,9 +35,9 @@ require("lazy").setup({
   priority = 1000,
   config = function()
     require("tokyonight").setup({
-      style = "storm",
+      style = "moon",
     })
-    vim.cmd("colorscheme tokyonight-storm")
+    vim.cmd("colorscheme tokyonight-moon")
   end,
 },
 
@@ -261,6 +261,76 @@ require("lazy").setup({
   dependencies = "nvim-tree/nvim-web-devicons",
   config = function()
     require("bufferline").setup({})
+  end,
+},
+
+-- DAP Core
+{
+  "mfussenegger/nvim-dap",
+  dependencies = {
+    "rcarriga/nvim-dap-ui",
+    "nvim-neotest/nvim-nio",
+    "jay-babu/mason-nvim-dap.nvim",  -- ← Brücke Mason ↔ DAP
+  },
+  config = function()
+    -- Mason-DAP zuerst, der installiert den Adapter
+    require("mason-nvim-dap").setup({
+      ensure_installed = { "php" },
+      automatic_installation = true,
+    })
+
+    local dap = require("dap")
+    local dapui = require("dapui")
+
+    -- Adapter Pfad via Mason (immer dieser Pfad)
+    dap.adapters.php = {
+      type = "executable",
+      command = "node",
+      args = {
+        vim.fn.stdpath("data") .. "/mason/packages/php-debug-adapter/extension/out/phpDebug.js",
+      },
+    }
+
+    dap.configurations.php = {
+      {
+        type = "php",
+        request = "launch",
+        name = "Xdebug CLI",
+        port = 9003,
+        pathMappings = {
+          ["${workspaceFolder}"] = "${workspaceFolder}",
+        },
+      },
+      {
+        type = "php",
+        request = "launch",
+        name = "Xdebug Web",
+        port = 9003,
+        pathMappings = {
+          ["/var/www/html"] = "${workspaceFolder}",
+        },
+      },
+    }
+
+    dap.listeners.after.event_initialized["dapui_config"] = function()
+      dapui.open()
+    end
+    dap.listeners.before.event_terminated["dapui_config"] = function()
+      dapui.close()
+    end
+
+    vim.keymap.set("n", "<F5>",       dap.continue,             { desc = "DAP Continue" })
+    vim.keymap.set("n", "<F10>",      dap.step_over,            { desc = "DAP Step Over" })
+    vim.keymap.set("n", "<F11>",      dap.step_into,            { desc = "DAP Step Into" })
+    vim.keymap.set("n", "<F12>",      dap.step_out,             { desc = "DAP Step Out" })
+    vim.keymap.set("n", "<leader>b",  dap.toggle_breakpoint,    { desc = "Toggle Breakpoint" })
+    vim.keymap.set("n", "<F5>",  dap.continue,  { desc = "DAP Continue / Stop" })
+    vim.keymap.set("n", "<leader>dx", function()
+      require("dap").terminate()
+      require("dapui").close()
+    end, { desc = "DAP Beenden" })
+
+    require("dapui").setup()
   end,
 },
 })
