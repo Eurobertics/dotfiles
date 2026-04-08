@@ -56,7 +56,7 @@ Die `lazy-lock.json` wird bewusst versioniert für reproduzierbare Plugin-Versio
 
 ## Cheat Sheet
 
-Ein vollständiges Cheat Sheet mit allen Shortcuts und Plugin-Keymaps liegt unter `docs/neovim-cheatsheet.docx`.
+Ein vollständiges Cheat Sheet mit allen Shortcuts und Plugin-Keymaps liegt unter `docs/neovim-cheatsheet.md`.
 
 ## Contributing
 
