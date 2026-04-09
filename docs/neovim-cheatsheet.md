@@ -18,6 +18,7 @@
 | `:colorscheme` | Command | Zeigt das aktuelle Farbschema |
 | `:colorscheme <colorscheme>` | Command | Farbschema ändern |
 | `:terminal` | Terminal | Standard Terminal öffnen |
+| `:terminal <shell command>` | Terminal | Befehl ausführen im Standard terminal |
 | `Ctrl+\` + `Ctrl+n` | Terminal | Terminal mode verlassen ohne zu schließen |
 
 ---
