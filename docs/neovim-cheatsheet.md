@@ -126,6 +126,13 @@
 | `Ctrl+w =` | Alle Splits gleich groß |
 | `Ctrl+w q` | Aktuellen Split schließen |
 
+> Tip: Buffer in Splits aufteilen:
+> 1. `Ctrl+w v`            → Split öffnen
+> 2. `Space + fb`          → Buffer-Liste öffnen
+> 3. `Dateiname tippen`    → filtern
+> 4. `Enter`               → Buffer im neuen Split laden
+> 5. `Ctrl+w w`            → zwischen Splits toggeln
+
 ---
 
 ## Buffer
