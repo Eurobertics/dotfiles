@@ -118,6 +118,7 @@
 | `:vsplit` / `:vsp` | Vertikaler Split |
 | `:split` / `:sp` | Horizontaler Split |
 | `:vsp datei.php` | Datei in neuem Split öffnen |
+| `:vsp +b3` | Offener Buffer 3 in vertikalen Split schieben |
 | `Ctrl+w h` | Split links |
 | `Ctrl+w l` | Split rechts |
 | `Ctrl+w j` | Split unten |
@@ -135,7 +136,7 @@
 | `:bn` | Nächster Buffer |
 | `:bp` | Vorheriger Buffer |
 | `:bd` | Buffer schließen |
-| `:ls` | Alle Buffer anzeigen |
+| `:ls` | Alle Buffer anzeigen (mit Nummern, ideal für :sp/:vsp) |
 | `Space + fb` | Buffer mit Telescope suchen |
 
 ---
