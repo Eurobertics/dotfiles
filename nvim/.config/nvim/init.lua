@@ -11,7 +11,14 @@ vim.opt.expandtab = true	-- Tabs zu Spaces konvertieren
 vim.opt.smartindent = true	-- Automatisches Einrücken
 vim.opt.wrap = false		-- Kein Zeilenumbruch
 vim.opt.termguicolors = true	-- Volle Farbunterstützung
--- vim.opt.mouse = ""  -- Maus komplett deaktivieren
+vim.opt.mouse = ""          -- Maus komplett deaktivieren
+-- vim.opt.undofile = true     -- Undo-Historie persistent speichern
+
+-- Pfeiltasten deaktivieren (Homerow erzwingen)
+vim.keymap.set("n", "<Up>",    "<Nop>")
+vim.keymap.set("n", "<Down>",  "<Nop>")
+vim.keymap.set("n", "<Left>",  "<Nop>")
+vim.keymap.set("n", "<Right>", "<Nop>")
 
 -- lazy.nvim Bootstrap
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -28,7 +35,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
--- Colorscheme
+
+-- Colorscheme Tokyo Night
 {
   "folke/tokyonight.nvim",
   lazy = false,
@@ -44,11 +52,10 @@ require("lazy").setup({
 -- OneDark Colorscheme
 {
   "olimorris/onedarkpro.nvim",
-  priority = 1000, -- Ensure it loads first
+  priority = 1000,
   config = function()
-      require("onedarkpro").setup({
-      })
-      vim.cmd("colorscheme onelight")
+    require("onedarkpro").setup({})
+    vim.cmd("colorscheme onelight")
   end,
 },
 
@@ -76,15 +83,15 @@ require("lazy").setup({
   "nvim-telescope/telescope.nvim",
   branch = "0.1.x",
   dependencies = {
-    "nvim-lua/plenary.nvim", -- Hilfsbibliothek, von vielen Plugins genutzt
+    "nvim-lua/plenary.nvim",
   },
   config = function()
     require("telescope").setup({})
 
-    -- Keymaps
+    -- Keymaps: Space + f = Find
     local builtin = require("telescope.builtin")
     vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find Files" })
-    vim.keymap.set("n", "<leader>fg", builtin.live_grep,  { desc = "Find in Files" })
+    vim.keymap.set("n", "<leader>fg", builtin.live_grep,  { desc = "Find in Files (Grep)" })
     vim.keymap.set("n", "<leader>fb", builtin.buffers,    { desc = "Find Buffers" })
   end,
 },
@@ -95,7 +102,7 @@ require("lazy").setup({
   branch = "v3.x",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "nvim-tree/nvim-web-devicons", -- Datei-Icons
+    "nvim-tree/nvim-web-devicons",
     "MunifTanjim/nui.nvim",
   },
   config = function()
@@ -105,14 +112,13 @@ require("lazy").setup({
       },
       filesystem = {
         filtered_items = {
-          visible = true,  -- versteckte Dateien anzeigen
+          visible = true,
           hide_dotfiles = false,
           hide_gitignored = false,
         },
       },
     })
 
-    -- Toggle mit Space+e
     vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", { desc = "Toggle Filetree" })
   end,
 },
@@ -168,17 +174,18 @@ require("lazy").setup({
       automatic_installation = true,
     })
 
-    -- LSP Keymaps
+    -- Keymaps: Space + l = LSP
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(ev)
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition,     { buffer = ev.buf, desc = "Go to Definition" })
-        vim.keymap.set("n", "K",  vim.lsp.buf.hover,          { buffer = ev.buf, desc = "Hover Docs" })
-        vim.keymap.set("n", "gr", vim.lsp.buf.references,     { buffer = ev.buf, desc = "Find References" })
-        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = ev.buf, desc = "Rename" })
+        vim.keymap.set("n", "gd",         vim.lsp.buf.definition,  { buffer = ev.buf, desc = "Go to Definition" })
+        vim.keymap.set("n", "K",          vim.lsp.buf.hover,        { buffer = ev.buf, desc = "Hover Docs" })
+        vim.keymap.set("n", "gr",         vim.lsp.buf.references,   { buffer = ev.buf, desc = "Find References" })
+        vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename,       { buffer = ev.buf, desc = "LSP Rename" })
+        vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition,   { buffer = ev.buf, desc = "LSP Definition" })
+        vim.keymap.set("n", "<leader>lf", vim.lsp.buf.references,   { buffer = ev.buf, desc = "LSP References" })
       end,
     })
 
-    -- Neue API: vim.lsp.config statt lspconfig.X.setup
     vim.lsp.config("intelephense", {})
     vim.lsp.config("lua_ls", {})
     vim.lsp.enable({ "intelephense", "lua_ls" })
@@ -189,11 +196,11 @@ require("lazy").setup({
 {
   "hrsh7th/nvim-cmp",
   dependencies = {
-    "hrsh7th/cmp-nvim-lsp",    -- LSP als Quelle
-    "hrsh7th/cmp-buffer",      -- Text im Buffer als Quelle
-    "hrsh7th/cmp-path",        -- Dateipfade als Quelle
-    "L3MON4D3/LuaSnip",        -- Snippet Engine
-    "saadparwaiz1/cmp_luasnip", -- Snippets in cmp
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
+    "L3MON4D3/LuaSnip",
+    "saadparwaiz1/cmp_luasnip",
   },
   config = function()
     local cmp = require("cmp")
@@ -206,8 +213,8 @@ require("lazy").setup({
         end,
       },
       mapping = cmp.mapping.preset.insert({
-        ["<C-Space>"] = cmp.mapping.complete(),   -- manuell triggern
-        ["<CR>"]      = cmp.mapping.confirm({ select = true }), -- bestätigen
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<CR>"]      = cmp.mapping.confirm({ select = true }),
         ["<Tab>"]     = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
@@ -226,10 +233,10 @@ require("lazy").setup({
         end, { "i", "s" }),
       }),
       sources = cmp.config.sources({
-        { name = "nvim_lsp" }, -- LSP zuerst
-        { name = "luasnip" },  -- dann Snippets
-        { name = "buffer" },   -- dann Buffer-Text
-        { name = "path" },     -- dann Dateipfade
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+        { name = "buffer" },
+        { name = "path" },
       }),
     })
   end,
@@ -247,14 +254,16 @@ require("lazy").setup({
         topdelete    = { text = "‾" },
         changedelete = { text = "~" },
       },
-      -- Keymaps
+      -- Keymaps: Space + g = Git
       on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
-        vim.keymap.set("n", "]c", gs.next_hunk,        { buffer = bufnr, desc = "Next Hunk" })
-        vim.keymap.set("n", "[c", gs.prev_hunk,        { buffer = bufnr, desc = "Prev Hunk" })
-        vim.keymap.set("n", "<leader>hs", gs.stage_hunk,   { buffer = bufnr, desc = "Stage Hunk" })
-        vim.keymap.set("n", "<leader>hu", gs.undo_stage_hunk, { buffer = bufnr, desc = "Undo Stage" })
-        vim.keymap.set("n", "<leader>hp", gs.preview_hunk, { buffer = bufnr, desc = "Preview Hunk" })
+        vim.keymap.set("n", "]c",         gs.next_hunk,         { buffer = bufnr, desc = "Next Hunk" })
+        vim.keymap.set("n", "[c",         gs.prev_hunk,         { buffer = bufnr, desc = "Prev Hunk" })
+        vim.keymap.set("n", "<leader>gn", gs.next_hunk,         { buffer = bufnr, desc = "Git Next Hunk" })
+        vim.keymap.set("n", "<leader>gp", gs.prev_hunk,         { buffer = bufnr, desc = "Git Prev Hunk" })
+        vim.keymap.set("n", "<leader>gs", gs.stage_hunk,        { buffer = bufnr, desc = "Git Stage Hunk" })
+        vim.keymap.set("n", "<leader>gu", gs.undo_stage_hunk,   { buffer = bufnr, desc = "Git Undo Stage" })
+        vim.keymap.set("n", "<leader>gh", gs.preview_hunk,      { buffer = bufnr, desc = "Git Preview Hunk" })
       end,
     })
   end,
@@ -266,7 +275,7 @@ require("lazy").setup({
   cmd = "Git",
 },
 
--- Buffer übersicht
+-- Buffer Übersicht
 {
   "akinsho/bufferline.nvim",
   dependencies = "nvim-tree/nvim-web-devicons",
@@ -281,10 +290,9 @@ require("lazy").setup({
   dependencies = {
     "rcarriga/nvim-dap-ui",
     "nvim-neotest/nvim-nio",
-    "jay-babu/mason-nvim-dap.nvim",  -- ← Brücke Mason ↔ DAP
+    "jay-babu/mason-nvim-dap.nvim",
   },
   config = function()
-    -- Mason-DAP zuerst, der installiert den Adapter
     require("mason-nvim-dap").setup({
       ensure_installed = { "php" },
       automatic_installation = true,
@@ -293,7 +301,6 @@ require("lazy").setup({
     local dap = require("dap")
     local dapui = require("dapui")
 
-    -- Adapter Pfad via Mason (immer dieser Pfad)
     dap.adapters.php = {
       type = "executable",
       command = "node",
@@ -330,13 +337,14 @@ require("lazy").setup({
       dapui.close()
     end
 
-    vim.keymap.set("n", "<F5>",       dap.continue,             { desc = "DAP Continue" })
-    vim.keymap.set("n", "<F10>",      dap.step_over,            { desc = "DAP Step Over" })
-    vim.keymap.set("n", "<F11>",      dap.step_into,            { desc = "DAP Step Into" })
-    vim.keymap.set("n", "<F12>",      dap.step_out,             { desc = "DAP Step Out" })
-    vim.keymap.set("n", "<leader>b",  dap.toggle_breakpoint,    { desc = "Toggle Breakpoint" })
-    vim.keymap.set("n", "<F5>",  dap.continue,  { desc = "DAP Continue / Stop" })
-    vim.keymap.set("n", "<leader>dx", function()
+    -- Keymaps: Space + d = DAP, F-Tasten als Alternative
+    vim.keymap.set("n", "<F5>",        dap.continue,          { desc = "DAP Continue" })
+    vim.keymap.set("n", "<F10>",       dap.step_over,         { desc = "DAP Step Over" })
+    vim.keymap.set("n", "<F11>",       dap.step_into,         { desc = "DAP Step Into" })
+    vim.keymap.set("n", "<F12>",       dap.step_out,          { desc = "DAP Step Out" })
+    vim.keymap.set("n", "<leader>db",  dap.toggle_breakpoint, { desc = "DAP Breakpoint" })
+    vim.keymap.set("n", "<leader>dc",  dap.continue,          { desc = "DAP Continue" })
+    vim.keymap.set("n", "<leader>dx",  function()
       require("dap").terminate()
       require("dapui").close()
     end, { desc = "DAP Beenden" })

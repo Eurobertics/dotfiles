@@ -1,5 +1,5 @@
 # Neovim Cheat Sheet
-> eurobertics | Tokyo Night | lazy.nvim Stack
+> eurobertics | Tokyo Night / OneDark | lazy.nvim Stack
 
 ---
 
@@ -15,6 +15,10 @@
 | `v` | Visual | Zeichen markieren |
 | `V` | Visual Line | Ganze Zeilen markieren |
 | `:` | Command | Befehle eingeben |
+| `:colorscheme` | Command | Zeigt das aktuelle Farbschema |
+| `:colorscheme <colorscheme>` | Command | Farbschema ändern |
+| `:terminal` | Terminal | Standard Terminal öffnen |
+| `Ctrl+\` + `Ctrl+n` | Terminal | Terminal mode verlassen ohne zu schließen |
 
 ---
 
@@ -33,6 +37,33 @@
 | `Ctrl+d` | Halbe Seite runter |
 | `Ctrl+u` | Halbe Seite hoch |
 | `[Zahl]j / [Zahl]k` | N Zeilen runter / rauf (relativ) |
+
+---
+
+## Zeichen-Navigation (Fortgeschritten)
+
+| Taste | Aktion |
+|---|---|
+| `f{zeichen}` | Springt zum nächsten Vorkommen des Zeichens in der Zeile |
+| `F{zeichen}` | Springt zum vorherigen Vorkommen des Zeichens |
+| `t{zeichen}` | Springt bis vor das Zeichen |
+| `T{zeichen}` | Springt bis nach das Zeichen (rückwärts) |
+| `;` | Wiederholt letzten f/t Sprung vorwärts |
+| `,` | Wiederholt letzten f/t Sprung rückwärts |
+
+> Beispiel: `f(` springt direkt zur nächsten öffnenden Klammer – in PHP extrem nützlich!
+
+---
+
+## Undo & Redo
+
+| Taste | Aktion |
+|---|---|
+| `u` | Undo – letzten Schritt rückgängig |
+| `Ctrl+r` | Redo – Undo rückgängig machen |
+| `U` | Ganze Zeile wiederherstellen |
+
+> Tipp: `vim.opt.undofile = true` in der `init.lua` aktiviert persistentes Undo – die Historie bleibt auch nach dem Schließen erhalten!
 
 ---
 
@@ -108,13 +139,13 @@
 
 ---
 
-## Telescope (Plugin)
+## Telescope – `Space + f` (Find)
 
 | Shortcut | Aktion |
 |---|---|
 | `Space + ff` | Dateien suchen (Find Files) |
-| `Space + fg` | Text in Projekt suchen (Live Grep) |
-| `Space + fb` | Offene Buffer suchen |
+| `Space + fg` | Text in Projekt suchen (Find Grep) |
+| `Space + fb` | Offene Buffer suchen (Find Buffers) |
 | `j / k` | Im Telescope-Fenster navigieren |
 | `Enter` | Auswahl bestätigen |
 | `ESC` | Telescope schließen |
@@ -136,14 +167,16 @@
 
 ---
 
-## LSP – Sprachserver (Plugin)
+## LSP – `Space + l` (Language Server)
 
 | Shortcut | Aktion |
 |---|---|
-| `gd` | Zur Definition springen (Go to Definition) |
+| `gd` | Zur Definition springen (nativ) |
 | `K` | Dokumentation anzeigen (Hover Docs) |
-| `gr` | Alle Referenzen finden |
-| `Space + rn` | Symbol umbenennen (Rename) |
+| `gr` | Alle Referenzen finden (nativ) |
+| `Space + lr` | Symbol umbenennen (Rename) |
+| `Space + ld` | Zur Definition springen |
+| `Space + lf` | Alle Referenzen finden |
 | `:Mason` | Mason Package Manager öffnen |
 | `:LspInfo` | Aktive Sprachserver anzeigen |
 
@@ -161,30 +194,32 @@
 
 ---
 
-## Git – Gitsigns + Fugitive (Plugin)
+## Git – `Space + g` (Git)
 
 | Shortcut / Befehl | Aktion |
 |---|---|
-| `]c` | Nächste Änderung (Next Hunk) |
-| `[c` | Vorherige Änderung (Prev Hunk) |
-| `Space + hp` | Änderung als Vorschau anzeigen |
-| `Space + hs` | Änderung stagen (Stage Hunk) |
-| `Space + hu` | Stage rückgängig machen |
+| `]c` | Nächste Änderung (nativ) |
+| `[c` | Vorherige Änderung (nativ) |
+| `Space + gn` | Git Next Hunk |
+| `Space + gp` | Git Prev Hunk |
+| `Space + gh` | Git Hunk Vorschau |
+| `Space + gs` | Git Stage Hunk |
+| `Space + gu` | Git Undo Stage |
 | `:Git` | Fugitive Git UI öffnen |
 | `:Git commit` | Commit erstellen |
 | `:Git push` | Push ausführen |
 
 ---
 
-## Xdebug – DAP (Plugin)
+## Xdebug – `Space + d` (Debug)
 
 | Shortcut / Befehl | Aktion |
 |---|---|
-| `F5` | Debug Konsole starten / Continue Step |
+| `F5` / `Space + dc` | Debug starten / Continue |
 | `F10` | Step over |
 | `F11` | Step into |
 | `F12` | Step out |
-| `Space + b` | Breakpoint setzen |
+| `Space + db` | Breakpoint setzen |
 | `Space + dx` | Debug Konsole schließen |
 
 ---
@@ -197,6 +232,18 @@
 | `:Lazy update` | Alle Plugins updaten |
 | `:Lazy clean` | Nicht verwendete Plugins löschen |
 | `:Lazy sync` | Installieren + Updaten + Cleanen |
+
+---
+
+## Keymap Kategorien – Übersicht
+
+| Präfix | Kategorie |
+|---|---|
+| `Space + f` | Find (Telescope) |
+| `Space + g` | Git |
+| `Space + l` | LSP (Language Server) |
+| `Space + d` | Debug (DAP/Xdebug) |
+| `Space + e` | Explorer (Neo-Tree) |
 
 ---
 
