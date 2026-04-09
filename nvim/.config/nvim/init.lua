@@ -86,7 +86,22 @@ require("lazy").setup({
     "nvim-lua/plenary.nvim",
   },
   config = function()
-    require("telescope").setup({})
+    require("telescope").setup({
+      defaults = {
+        file_ignore_patterns = {
+          "node_modules/", -- node_modules ignorieren
+          "vendor/",       -- PHP vendor ignorieren
+        },
+      },
+    --   pickers = {
+    --     find_files = {
+    --       hidden = true,
+    --     },
+    --     live_grep = {
+    --       additional_args = { "--hidden" },
+    --     },
+    --   },
+    -- })
 
     -- Keymaps: Space + f = Find
     local builtin = require("telescope.builtin")
@@ -350,6 +365,14 @@ require("lazy").setup({
     end, { desc = "DAP Beenden" })
 
     require("dapui").setup()
+  end,
+},
+
+-- Auskommentieren leicht gemacht
+{
+  "numToStr/Comment.nvim",
+  config = function()
+    require("Comment").setup({})
   end,
 },
 })

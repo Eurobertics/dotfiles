@@ -18,7 +18,7 @@
 | `:colorscheme` | Command | Zeigt das aktuelle Farbschema |
 | `:colorscheme <colorscheme>` | Command | Farbschema ändern |
 | `:terminal` | Terminal | Standard Terminal öffnen |
-| `:terminal <shell command>` | Terminal | Befehl ausführen im Standard terminal |
+| `:terminal <shell command>` | Terminal | Befehl ausführen im Standard Terminal |
 | `Ctrl+\` + `Ctrl+n` | Terminal | Terminal mode verlassen ohne zu schließen |
 
 ---
@@ -53,6 +53,22 @@
 | `,` | Wiederholt letzten f/t Sprung rückwärts |
 
 > Beispiel: `f(` springt direkt zur nächsten öffnenden Klammer – in PHP extrem nützlich!
+
+---
+
+## Suche in aktueller Datei
+
+| Taste | Aktion |
+|---|---|
+| `/suchbegriff` | Vorwärts suchen |
+| `?suchbegriff` | Rückwärts suchen |
+| `n` | Nächsten Treffer |
+| `N` | Vorherigen Treffer |
+| `*` | Sucht Wort unter Cursor vorwärts |
+| `#` | Sucht Wort unter Cursor rückwärts |
+| `:noh` | Suchmarkierung entfernen |
+
+> Tipp: `*` auf einem Variablennamen zeigt sofort alle Vorkommen in der Datei!
 
 ---
 
@@ -97,6 +113,31 @@
 
 ---
 
+## Einrücken (Visual Mode)
+
+| Taste | Aktion |
+|---|---|
+| `V` + Zeilen markieren + `>` | Einrücken (indent) |
+| `V` + Zeilen markieren + `<` | Ausrücken (unindent) |
+| `3>` | Drei Ebenen auf einmal einrücken |
+
+> Tipp: Nach `>` oder `<` bleibt die Markierung aktiv – einfach nochmal drücken für weitere Ebenen!
+
+---
+
+## Kommentare – Comment.nvim (Plugin)
+
+| Taste | Aktion |
+|---|---|
+| `gcc` | Aktuelle Zeile aus/einkommentieren (toggle) |
+| `gc` + Bewegung | Bereich kommentieren z.B. `gc3j` |
+| `V` + Zeilen markieren + `gc` | Markierten Bereich kommentieren |
+
+> Erkennt automatisch den richtigen Syntax: `//` PHP/JS, `--` Lua, `#` Bash/Python etc.
+> Nochmal `gc` auf kommentiertem Bereich macht es wieder rückgängig – toggle!
+
+---
+
 ## Speichern & Beenden
 
 | Befehl | Aktion |
@@ -119,10 +160,13 @@
 | `:split` / `:sp` | Horizontaler Split |
 | `:vsp datei.php` | Datei in neuem Split öffnen |
 | `:vsp +b3` | Offener Buffer 3 in vertikalen Split schieben |
+| `Ctrl+w v` | Vertikalen Split öffnen (leer) |
+| `Ctrl+w s` | Horizontalen Split öffnen (leer) |
 | `Ctrl+w h` | Split links |
 | `Ctrl+w l` | Split rechts |
 | `Ctrl+w j` | Split unten |
 | `Ctrl+w k` | Split oben |
+| `Ctrl+w w` | Zwischen Splits toggeln |
 | `Ctrl+w =` | Alle Splits gleich groß |
 | `Ctrl+w q` | Aktuellen Split schließen |
 
@@ -183,6 +227,8 @@
 | `gd` | Zur Definition springen (nativ) |
 | `K` | Dokumentation anzeigen (Hover Docs) |
 | `gr` | Alle Referenzen finden (nativ) |
+| `]d` | Nächster LSP Fehler/Warning |
+| `[d` | Vorheriger LSP Fehler/Warning |
 | `Space + lr` | Symbol umbenennen (Rename) |
 | `Space + ld` | Zur Definition springen |
 | `Space + lf` | Alle Referenzen finden |
