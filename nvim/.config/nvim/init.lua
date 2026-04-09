@@ -37,7 +37,18 @@ require("lazy").setup({
     require("tokyonight").setup({
       style = "moon",
     })
-    vim.cmd("colorscheme tokyonight-moon")
+--    vim.cmd("colorscheme tokyonight-moon")
+  end,
+},
+
+-- OneDark Colorscheme
+{
+  "olimorris/onedarkpro.nvim",
+  priority = 1000, -- Ensure it loads first
+  config = function()
+      require("onedarkpro").setup({
+      })
+      vim.cmd("colorscheme onelight")
   end,
 },
 
