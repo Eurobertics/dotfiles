@@ -36,7 +36,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 
--- Colorscheme Tokyo Night
+-- Colorscheme Tokyo Night (lazy = false: sofort laden damit kein Theme-Flackern)
 {
   "folke/tokyonight.nvim",
   lazy = false,
@@ -49,9 +49,10 @@ require("lazy").setup({
   end,
 },
 
--- OneDark Colorscheme
+-- OneDark Colorscheme (lazy = false: sofort laden damit kein Theme-Flackern)
 {
   "olimorris/onedarkpro.nvim",
+  lazy = false,
   priority = 1000,
   config = function()
     require("onedarkpro").setup({})
@@ -59,10 +60,11 @@ require("lazy").setup({
   end,
 },
 
--- Syntax Highlighting
+-- Syntax Highlighting (lazy = false: Highlighting muss sofort aktiv sein)
+-- Commit-Pin entfernt: Neovim 0.12 hat Treesitter nativ, Plugin nicht mehr nötig
 {
   "nvim-treesitter/nvim-treesitter",
-  commit = "7caec274fd19c12b55902a5b795100d21531391",
+  lazy = false,
   build = ":TSUpdate",
   config = function()
     require("nvim-treesitter.config").setup({
@@ -78,10 +80,10 @@ require("lazy").setup({
   end,
 },
 
--- Fuzzy Finder
+-- Fuzzy Finder (VeryLazy: wird erst nach Startup geladen)
 {
   "nvim-telescope/telescope.nvim",
---  branch = "0.1.x",
+  event = "VeryLazy",
   dependencies = {
     "nvim-lua/plenary.nvim",
   },
@@ -111,14 +113,20 @@ require("lazy").setup({
   end,
 },
 
--- Dateibaum
+-- Dateibaum (cmd: lädt erst beim ersten :Neotree Aufruf)
 {
   "nvim-neo-tree/neo-tree.nvim",
   branch = "v3.x",
+  -- event = "VeryLazy",
+  lazy = false,
+  cmd = "Neotree",
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons",
     "MunifTanjim/nui.nvim",
+  },
+  keys = {
+    { "<leader>e", ":Neotree toggle<CR>", desc = "Toggle Filetree" }
   },
   config = function()
     require("neo-tree").setup({
@@ -134,13 +142,13 @@ require("lazy").setup({
       },
     })
 
-    vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", { desc = "Toggle Filetree" })
   end,
 },
 
--- Statusleiste
+-- Statusleiste (VeryLazy: kurze Verzögerung beim Start ist ok)
 {
   "nvim-lualine/lualine.nvim",
+  event = "VeryLazy",
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },
@@ -163,9 +171,10 @@ require("lazy").setup({
   end,
 },
 
--- LSP
+-- LSP (lazy = false: Sprachserver müssen beim Start initialisiert werden)
 {
   "williamboman/mason.nvim",
+  lazy = false,
   dependencies = {
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
@@ -207,9 +216,10 @@ require("lazy").setup({
   end,
 },
 
--- Autocompletion
+-- Autocompletion (InsertEnter: lädt erst wenn du anfängst zu tippen)
 {
   "hrsh7th/nvim-cmp",
+  event = "InsertEnter",
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
@@ -257,9 +267,10 @@ require("lazy").setup({
   end,
 },
 
--- Git
+-- Git (BufReadPre: lädt wenn eine Datei geöffnet wird)
 {
   "lewis6991/gitsigns.nvim",
+  event = "BufReadPre",
   config = function()
     require("gitsigns").setup({
       signs = {
@@ -284,24 +295,26 @@ require("lazy").setup({
   end,
 },
 
--- Fugitive
+-- Fugitive (cmd: lädt erst bei :Git Aufruf)
 {
   "tpope/vim-fugitive",
   cmd = "Git",
 },
 
--- Buffer Übersicht
+-- Buffer Übersicht (VeryLazy: nach Startup laden)
 {
   "akinsho/bufferline.nvim",
+  event = "VeryLazy",
   dependencies = "nvim-tree/nvim-web-devicons",
   config = function()
     require("bufferline").setup({})
   end,
 },
 
--- DAP Core
+-- DAP Core (cmd: lädt erst beim ersten Debug-Befehl)
 {
   "mfussenegger/nvim-dap",
+  cmd = { "DapToggleBreakpoint", "DapContinue" },
   dependencies = {
     "rcarriga/nvim-dap-ui",
     "nvim-neotest/nvim-nio",
@@ -368,9 +381,10 @@ require("lazy").setup({
   end,
 },
 
--- Auskommentieren leicht gemacht
+-- Auskommentieren (BufReadPre: lädt wenn eine Datei geöffnet wird)
 {
   "numToStr/Comment.nvim",
+  event = "BufReadPre",
   config = function()
     require("Comment").setup({})
   end,
