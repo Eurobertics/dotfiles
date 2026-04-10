@@ -101,7 +101,7 @@ require("lazy").setup({
     --       additional_args = { "--hidden" },
     --     },
     --   },
-    -- })
+    })
 
     -- Keymaps: Space + f = Find
     local builtin = require("telescope.builtin")
