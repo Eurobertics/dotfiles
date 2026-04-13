@@ -207,6 +207,7 @@ require("lazy").setup({
         vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename,       { buffer = ev.buf, desc = "LSP Rename" })
         vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition,   { buffer = ev.buf, desc = "LSP Definition" })
         vim.keymap.set("n", "<leader>lf", vim.lsp.buf.references,   { buffer = ev.buf, desc = "LSP References" })
+        vim.keymap.set("n", "<leader>lh", vim.diagnostic.open_float, { buffer = ev.buf, desc = "LSP Hint/Error Details" })
       end,
     })
 

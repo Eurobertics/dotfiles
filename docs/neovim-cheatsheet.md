@@ -232,6 +232,7 @@
 | `Space + lr` | Symbol umbenennen (Rename) |
 | `Space + ld` | Zur Definition springen |
 | `Space + lf` | Alle Referenzen finden |
+| `Space + lh` | Zeige Info/Hints an |
 | `:Mason` | Mason Package Manager öffnen |
 | `:LspInfo` | Aktive Sprachserver anzeigen |
 
