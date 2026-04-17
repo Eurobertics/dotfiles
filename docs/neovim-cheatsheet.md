@@ -170,6 +170,25 @@
 | `Ctrl+w =` | Alle Splits gleich groß |
 | `Ctrl+w q` | Aktuellen Split schließen |
 
+### Split-Größe – Manuelle Commands
+
+| Befehl | Aktion |
+|---|---|
+| `:resize {n}` | Höhe exakt auf n Zeilen setzen (z.B. `:resize 30`) |
+| `:vertical resize {n}` | Breite exakt auf n Zeichen setzen (z.B. `:vertical resize 80`) |
+
+### Split-Größe – Keyboard Shortcuts
+
+| Taste | Aktion |
+|---|---|
+| `Ctrl+w +` | Höhe vergrößern |
+| `Ctrl+w -` | Höhe verkleinern |
+| `Ctrl+w _` | Höhe maximieren |
+| `Ctrl+w >` | Breite vergrößern |
+| `Ctrl+w <` | Breite verkleinern |
+| `[N]Ctrl+w +` | Höhe um N Zeilen vergrößern (z.B. `10 Ctrl+w +`) |
+| `[N]Ctrl+w >` | Breite um N Zeichen vergrößern |
+
 > Tip: Buffer in Splits aufteilen:
 > 1. `Ctrl+w v`            → Split öffnen
 > 2. `Space + fb`          → Buffer-Liste öffnen
