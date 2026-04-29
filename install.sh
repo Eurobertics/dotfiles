@@ -15,5 +15,10 @@ rm -f "$HOME/.tmux.conf"
 ln -sf "$DOTFILES/tmux/.tmux.conf" "$HOME/.tmux.conf"
 echo "  [ok] tmux"
 
+# git
+rm -f "$HOME/.gitconfig"
+ln -sf "$DOTFILES/git/.gitconfig" "$HOME/.gitconfig"
+echo "  [ok] git"
+
 echo "Done!"
 

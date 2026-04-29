@@ -1,0 +1,12 @@
+[user]
+	name = Bernd Robertz
+	email = brobertz.net@gmail.com
+	signingkey = C65EE551C85EDB0D5C9B8D5B4946FE9054E19ADB
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
+[init]
+	defaultBranch = main
+[core]
+	editor = nvim
