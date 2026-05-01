@@ -3,6 +3,8 @@
 Neovim setup für PHP/Symfony Entwicklung auf Basis von lazy.nvim.  
 Optimiert für Terminal-First Workflows mit DevContainer Support.
 
+> Für das hyprland Desktop Setup → [eurobertics/dotfiles-desktop](https://github.com/eurobertics/dotfiles-desktop)
+
 ## Stack
 
 | Plugin | Funktion |

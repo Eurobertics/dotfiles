@@ -56,7 +56,7 @@ require("lazy").setup({
   priority = 1000,
   config = function()
     require("onedarkpro").setup({})
-    vim.cmd("colorscheme onelight")
+    vim.cmd("colorscheme onedark_dark")
   end,
 },
 
