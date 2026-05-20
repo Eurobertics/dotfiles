@@ -67,6 +67,7 @@
 | `*` | Sucht Wort unter Cursor vorwärts |
 | `#` | Sucht Wort unter Cursor rückwärts |
 | `:noh` | Suchmarkierung entfernen |
+| `:s` | Suchen und Ersetzen mit REGEX (:s/<such_regex>/<ersetzen>) |
 
 > Tipp: `*` auf einem Variablennamen zeigt sofort alle Vorkommen in der Datei!
 
