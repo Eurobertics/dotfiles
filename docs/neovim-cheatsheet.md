@@ -253,6 +253,7 @@
 | `Space + ld` | Zur Definition springen |
 | `Space + lf` | Alle Referenzen finden |
 | `Space + lh` | Zeige Info/Hints an |
+| `Space + ch` | Wechsel zwischen Header und Sourcefile (C++) |
 | `:Mason` | Mason Package Manager öffnen |
 | `:LspInfo` | Aktive Sprachserver anzeigen |
 

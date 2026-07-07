@@ -21,8 +21,8 @@ Optimiert für Terminal-First Workflows mit DevContainer Support.
 | gitsigns.nvim + vim-fugitive | Git Integration |
 | nvim-dap + nvim-dap-ui | Debugger (Xdebug/PHP) |
 
-**LSP:** intelephense (PHP), lua_ls (Lua)  
-**DAP:** php-debug-adapter (Xdebug, Port 9003)
+**LSP:** intelephense (PHP), lua_ls (Lua), clangd (C++) 
+**DAP:** php-debug-adapter (Xdebug, Port 9003), codelldb
 
 ## Installation
 

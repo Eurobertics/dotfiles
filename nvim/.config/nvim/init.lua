@@ -68,7 +68,7 @@ require("lazy").setup({
   build = ":TSUpdate",
   config = function()
     require("nvim-treesitter.config").setup({
-      ensure_installed = { "lua", "php", "javascript", "html", "css", "yaml", "dockerfile", "bash" },
+      ensure_installed = { "lua", "php", "javascript", "html", "css", "yaml", "dockerfile", "bash", "cpp", "c", "h", "hpp", "cmake" },
       auto_install = true,
       highlight = {
         enable = true,
@@ -194,6 +194,7 @@ require("lazy").setup({
       ensure_installed = {
         "intelephense", -- PHP
         "lua_ls",       -- Lua
+        "clangd",       -- C++
       },
       automatic_installation = true,
     })
@@ -213,7 +214,22 @@ require("lazy").setup({
 
     vim.lsp.config("intelephense", {})
     vim.lsp.config("lua_ls", {})
-    vim.lsp.enable({ "intelephense", "lua_ls" })
+    vim.lsp.enable({ "intelephense", "lua_ls", "clangd" })
+  end,
+},
+
+-- C++ Erweiterungen für clangd
+{
+  "p00f/clangd_extensions.nvim",
+  ft = { "c", "cpp" },  -- lädt nur bei C/C++ Dateien
+  config = function()
+    require("clangd_extensions").setup({
+      inlay_hints = {
+        inline = true,
+      },
+    })
+    -- .cpp <-> .h wechseln
+    vim.keymap.set("n", "<leader>ch", ":ClangdSwitchSourceHeader<CR>", { desc = "Switch Header/Source" })
   end,
 },
 
@@ -323,7 +339,7 @@ require("lazy").setup({
   },
   config = function()
     require("mason-nvim-dap").setup({
-      ensure_installed = { "php" },
+      ensure_installed = { "php", "codelldb" },
       automatic_installation = true,
     })
 
@@ -335,6 +351,28 @@ require("lazy").setup({
       command = "node",
       args = {
         vim.fn.stdpath("data") .. "/mason/packages/php-debug-adapter/extension/out/phpDebug.js",
+      },
+    }
+
+    dap.adapters.codelldb = {
+      type = "server",
+      port = "${port}",
+      executable = {
+        command = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/adapter/codelldb",
+        args = { "--port", "${port}" },
+      },
+    }
+
+    dap.configurations.cpp = {
+      {
+        name = "Launch",
+        type = "codelldb",
+        request = "launch",
+        program = function()
+          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        end,
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
       },
     }
 
