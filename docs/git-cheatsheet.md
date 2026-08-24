@@ -108,7 +108,38 @@ Der Unterschied ist also nicht "History kopieren vs. chronologisch einsortieren"
 > Tipp: `git diff origin/main..HEAD` zeigt genau die Commits, die noch nicht gepusht sind – der native Ersatz für `tig main..HEAD`.
 ---
  
-## Log – Kompakte Übersicht statt Seitenweise Changes
+## Cherry-Pick
+ 
+| Befehl                              | Aktion                                                          |
+| -------------------------------------- | -------------------------------------------------------------------- |
+| `git cherry-pick <commit>`             | Einzelnen Commit von anderem Branch in aktuellen Branch übernehmen   |
+| `git cherry-pick <commit1> <commit2>`  | Mehrere einzelne Commits übernehmen (in angegebener Reihenfolge)     |
+| `git cherry-pick <commit1>..<commit2>` | Ganzen Commit-Bereich übernehmen (commit1 exklusiv)                  |
+| `git cherry-pick -n <commit>`          | Übernehmen ohne direkt zu committen (nur staged, für Nachbearbeitung)|
+| `git cherry-pick --continue`           | Nach Konfliktlösung fortfahren                                       |
+| `git cherry-pick --abort`              | Cherry-Pick abbrechen, Ausgangszustand wiederherstellen               |
+| `git cherry-pick --skip`               | Aktuellen Commit überspringen, mit nächstem weitermachen              |
+ 
+> Cherry-Pick erzeugt wie Rebase einen **neuen Commit mit neuem Hash** – nützlich, um z.B. einen einzelnen Bugfix von `feature` nach `main` zu holen, ohne den ganzen Branch zu mergen.
+---
+ 
+## Tags
+ 
+| Befehl                                   | Aktion                                            |
+| ------------------------------------------- | ------------------------------------------------------ |
+| `git tag`                                   | Alle Tags auflisten                                     |
+| `git tag <name>`                            | Lightweight-Tag am aktuellen Commit setzen              |
+| `git tag -a <name> -m "..."`                | Annotated Tag mit Message setzen (empfohlen, z.B. Releases)|
+| `git tag <name> <commit>`                   | Tag an einem bestimmten, nicht dem aktuellen Commit setzen|
+| `git show <tag>`                            | Details/Message eines Tags anzeigen                     |
+| `git push origin <tag>`                     | Einzelnen Tag zum Remote pushen                          |
+| `git push origin --tags`                    | Alle lokalen Tags zum Remote pushen                      |
+| `git tag -d <name>`                         | Lokalen Tag löschen                                      |
+| `git push origin --delete <name>`           | Remote-Tag löschen                                       |
+| `git checkout <tag>`                        | Zustand eines Tags auschecken (detached HEAD)            |
+ 
+> Faustregel: **annotated Tags** (`-a`) für Releases/Versionen verwenden (mit Autor, Datum, Message – wie ein eigener Commit), **lightweight Tags** nur für schnelle, private Marker.
+---
  
 | Befehl                                | Aktion                                                          |
 | --------------------------------------- | ------------------------------------------------------------------ |
@@ -145,4 +176,3 @@ Der Unterschied ist also nicht "History kopieren vs. chronologisch einsortieren"
  
 *Standard Git CLI | kein tig/difftastic | [github.com/eurobertics/dotfiles](https://github.com/eurobertics/dotfiles)*
  
-
