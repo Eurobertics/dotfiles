@@ -1,7 +1,7 @@
 [user]
 	name = Bernd Robertz
-	email = brobertz.net@gmail.com
-	signingkey = C65EE551C85EDB0D5C9B8D5B4946FE9054E19ADB
+	email = bernd@brobertz.net
+	signingkey = 39D56C89A000815CF3460A9A36AA3B5027D24A3E
 [commit]
 	gpgsign = true
 [tag]
@@ -10,8 +10,6 @@
 	defaultBranch = main
 [core]
 	editor = nvim
-[gpg]
-	program = /mnt/c/Program Files/gnupg/bin/gpg.exe
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
